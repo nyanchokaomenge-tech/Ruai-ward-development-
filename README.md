@@ -1,29 +1,45 @@
 # Ruai Ward Development
 
-Mobile-friendly resident feedback prototype for Ruai Ward.
+Mobile-friendly resident feedback site for Ruai Ward.
 
-## Included
-- Responsive feedback form with issue category, area, description, optional contact details.
-- Consent checkbox and privacy reminders.
-- WhatsApp message draft to 0742 620 609.
-- Email draft to nyanchokaomenge@gmail.com.
-- Browser-generated reference code for residents to quote in follow-up.
-- GitHub Pages deployment workflow at .github/workflows/pages.yml.
+## Project files
+- `index.html` — resident submission form and WhatsApp/email handoff.
+- `track.html` — public status lookup by reference code (reveals status and public response only).
+- `admin.html` — administrator sign-in and case dashboard.
+- `config.js` — public Supabase project URL and anon/publishable key placeholders.
+- `supabase-schema.sql` — database tables, row-level security, status lookup function and administrator policies.
+- `.github/workflows/pages.yml` — GitHub Pages deployment workflow.
 
-## Current limitations — read before launch
-This is a front-end prototype, not yet a production case-management system. The resident must choose WhatsApp/email and press Send. The generated reference code is not registered in a central database. There is no secure administrator login, shared status tracking, central submissions database, administrator response dashboard, or automatic email delivery.
+## Backend setup still required
+I cannot provision a Supabase project or create its account credentials on your behalf from this repository connection. Complete these steps to enable real central submissions, responses and tracking:
 
-## Required before real resident engagement
-1. Add a secure backend/database (such as Supabase or Firebase) with least-privilege access rules.
-2. Add administrator authentication and a dashboard for submissions, responses, and status changes.
-3. Configure a server-side email provider and verified sender credentials. Never put API keys/secrets in browser code or GitHub.
-4. Publish a privacy notice and retention/deletion policy; add abuse protection, backups, and test access controls.
-5. Confirm the ward team controls the listed contact channels and test the workflow before public launch.
+1. Create a Supabase project at https://supabase.com/ and keep the database password private.
+2. In Supabase → SQL Editor, run the complete contents of `supabase-schema.sql`.
+3. In Supabase → Project Settings → API, copy the project URL and **anon/publishable** key into `config.js`. These are browser-facing values protected by the database policies. **Never put a service-role key or database password in this file or GitHub.**
+4. In Supabase → Authentication, create the administrator account with the ward team's authorized email and a strong unique password. Disable public sign-ups if not needed.
+5. Copy that account's user UUID from Authentication and run this separate SQL command in the SQL Editor, replacing the placeholder:
+   `insert into public.ward_admins (user_id) values ('PASTE-AUTH-USER-UUID-HERE');`
+6. Open `admin.html`, sign in and confirm that only the authorized account can see/update submissions.
+7. Submit a test issue, note the returned reference code, then test `track.html` and an administrator status/response update. Delete test records before launch if appropriate.
+
+## Contact channels
+- WhatsApp: +254 742 620 609
+- Email: nyanchokaomenge@gmail.com
+
+The resident form can prepare a WhatsApp or email draft for a resident to review and send. Automatic email notifications are not enabled; they require a server-side email provider and secret credentials stored only in server-side secrets. Do not put those credentials in browser code.
 
 ## Publish with GitHub Pages
 1. Open repository Settings → Pages.
-2. Select **GitHub Actions** as the deployment source.
-3. Open Actions and check the workflow run after pushing to main.
-4. When it succeeds, Settings → Pages will show the published website URL.
+2. Select **GitHub Actions** as the source.
+3. Open Actions and confirm the Pages workflow succeeds.
+4. Return to Settings → Pages for the published URL.
 
 Repository: https://github.com/nyanchokaomenge-tech/Ruai-ward-development-
+
+## Privacy and limitations
+- Before backend setup, the app does not centrally save submissions or enable real tracking.
+- Once configured, submissions include issue details and optional name/contact details. Access to those records is restricted by row-level security to administrators.
+- Public reference lookup returns only reference, status, administrator response and update time; it does not expose resident contact details or issue text.
+- Reference codes should be treated as private. Do not share them publicly.
+- Add a formal privacy notice, retention/deletion schedule, backups, abuse protection, and incident process before inviting all residents to use the service.
+- Test database policies and the administrator workflow before public launch.
