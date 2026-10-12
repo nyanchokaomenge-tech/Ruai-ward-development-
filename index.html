@@ -39,16 +39,16 @@ button,.btn{display:inline-flex;align-items:center;justify-content:center;border
 <div class="feature"><strong>1. Share your concern</strong><span>Send details through WhatsApp or email.</span></div>
 <div class="feature"><strong>2. Receive a response</strong><span>The team can reply through the channel you used.</span></div>
 <div class="feature"><strong>3. Track progress</strong><span>Live case tracking will be available once a secure backend and administrator dashboard are connected.</span></div>
-<div class="notice"><strong>Privacy note</strong><br>Only share information needed to explain the issue. Do not submit passwords, national ID numbers, financial details or another person’s private information. Messages are handled by the external service you choose.</div>
+<p><a href="track.html">Already submitted? Track your feedback status</a></p><div class="notice"><strong>Privacy note</strong><br>Only share information needed to explain the issue. Do not submit passwords, national ID numbers, financial details or another person’s private information. Messages are handled by the external service you choose.</div>
 </aside></div></main>
 <footer><div class="wrap">Ruai Ward Development · Resident feedback prototype<br>For urgent emergencies, contact the relevant emergency service directly.</div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script>
 const form=document.getElementById('feedbackForm'), panel=document.getElementById('sendPanel');
 form.addEventListener('submit',async function(e){e.preventDefault();if(!form.reportValidity())return;
 const val=id=>document.getElementById(id).value.trim();
-let ref='RWD-'+new Date().toISOString().slice(0,10).replaceAll('-','')+'-'+Math.random().toString(36).slice(2,8).toUpperCase();
+let ref='RWD-'+new Date().toISOString().slice(0,10).replaceAll('-','')+'-'+Math.random().toString(36).slice(2,10).toUpperCase();
 let saved=false;const cfg=window.RUAI_SUPABASE_CONFIG||{};
-if(cfg.url&&cfg.anonKey){try{const sb=window.supabase.createClient(cfg.url,cfg.anonKey);const {data,error}=await sb.from('ward_feedback').insert({category:val('category'),area:val('area'),details:val('details'),resident_name:val('name')||null,resident_contact:val('contact')||null,consent:true}).select('reference_code').single();if(error)throw error;ref=data.reference_code;saved=true}catch(err){console.error('Feedback backend submission failed',err)}}
+if(cfg.url&&cfg.anonKey){try{const sb=window.supabase.createClient(cfg.url,cfg.anonKey);const {error}=await sb.from('ward_feedback').insert({reference_code:ref,category:val('category'),area:val('area'),details:val('details'),resident_name:val('name')||null,resident_contact:val('contact')||null,consent:true});if(error)throw error;saved=true}catch(err){console.error('Feedback backend submission failed',err)}}
 const message='RUAI WARD DEVELOPMENT — RESIDENT FEEDBACK\\nReference: '+ref+'\\nCategory: '+val('category')+'\\nArea: '+val('area')+'\\nDetails: '+val('details')+'\\nName: '+(val('name')||'Not provided')+'\\nContact: '+(val('contact')||'Not provided');
 document.getElementById('referenceText').textContent='Reference number: '+ref+(saved?' — saved securely for status tracking.':' — not yet saved to the online tracking system.');
 const note=panel.querySelector('.small');note.textContent=saved?'Your submission is saved. You can track status using the reference code. You may also send the message to WhatsApp or email if you want direct contact.':'Backend tracking is not configured or unavailable. Your message has not been saved centrally. Choose WhatsApp or email below and press Send to submit it.';
