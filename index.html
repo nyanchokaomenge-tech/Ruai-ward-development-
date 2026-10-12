@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123c35"><meta name="description" content="Ruai Ward Development — resident feedback, service requests and community updates.">
+<title>Ruai Ward Development</title>
+<style>
+:root{--green:#123c35;--green2:#1c5b4f;--orange:#ef7d32;--cream:#f6f7f3;--ink:#172522;--muted:#65736f;--line:#dfe6e1;--white:#fff}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.5}
+header{background:var(--green);color:white;padding:22px 18px 34px} .wrap{max-width:1000px;margin:auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:800;letter-spacing:.2px}.pill{border:1px solid #ffffff55;border-radius:999px;padding:6px 10px;font-size:.78rem}
+.hero{padding:34px 0 8px;max-width:700px}.eyebrow{color:#ffd0a8;font-weight:750;text-transform:uppercase;letter-spacing:1.5px;font-size:.75rem}.hero h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.06;margin:12px 0}.hero p{color:#e2ece8;max-width:620px;margin-bottom:0}
+main{padding:22px 16px 42px}.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 8px 28px #17352b0a}.card h2{font-size:1.25rem;margin:0 0 5px}.sub{color:var(--muted);font-size:.92rem;margin:0 0 18px}
+label{display:block;font-weight:650;font-size:.9rem;margin:14px 0 6px}input,select,textarea{font:inherit;width:100%;border:1px solid #cbd6d0;border-radius:10px;padding:12px;background:#fff;color:var(--ink)}textarea{min-height:120px;resize:vertical}input:focus,select:focus,textarea:focus{outline:3px solid #ef7d3233;border-color:var(--orange)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.check{display:flex;gap:10px;align-items:flex-start;font-weight:450;font-size:.85rem;color:var(--muted)}.check input{width:auto;margin-top:5px}
+button,.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;padding:12px 16px;font-weight:750;font-size:.95rem;text-decoration:none;cursor:pointer}.primary{background:var(--orange);color:#24170e;width:100%;margin-top:16px}.secondary{background:#e8f0ec;color:var(--green);width:100%;margin-top:10px}.wa{background:#e6f4e9;color:#176333}.email{background:#edf0ff;color:#343e87}.btnrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.notice{background:#fff6ec;border:1px solid #f7d5b5;border-radius:12px;padding:12px;font-size:.84rem;color:#75441f;margin-top:14px}.contact{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.contact:last-child{border-bottom:0}.icon{width:42px;height:42px;display:grid;place-items:center;background:#e9f0ec;border-radius:12px;font-size:1.25rem}.contact strong{display:block}.contact a{color:var(--green2);overflow-wrap:anywhere}.feature{padding:14px 0;border-bottom:1px solid var(--line)}.feature:last-child{border:0}.feature strong{display:block}.feature span{font-size:.9rem;color:var(--muted)}
+.status{margin-top:16px;padding:15px;border-radius:12px;background:#eef5f0;border:1px solid #cddfd3}.status h3{margin:0 0 4px;font-size:1rem}.hidden{display:none}.small{font-size:.82rem;color:var(--muted)}footer{background:#e9eee9;padding:20px 16px;text-align:center;color:var(--muted);font-size:.83rem}
+@media(max-width:740px){.grid{grid-template-columns:1fr}.hero{padding-top:26px}.card{padding:18px}.row{grid-template-columns:1fr}.top{align-items:flex-start}}
+</style></head>
+<body>
+<header><div class="wrap"><div class="top"><div class="brand">RUAI WARD DEVELOPMENT</div><span class="pill">Resident engagement</span></div><section class="hero"><div class="eyebrow">Your voice. Your community.</div><h1>Let’s make Ruai better, together.</h1><p>Share a local concern, report a service issue or send a suggestion. Your feedback helps highlight what needs attention across our community.</p></section></div></header>
+<main class="wrap"><div class="grid">
+<section class="card"><h2>Send resident feedback</h2><p class="sub">Complete the form, then choose WhatsApp or email to send it.</p>
+<form id="feedbackForm">
+<div class="row"><div><label for="category">Feedback category *</label><select id="category" required><option value="">Choose a category</option><option>Roads and drainage</option><option>Water and sanitation</option><option>Healthcare</option><option>Waste collection</option><option>Street lighting and safety</option><option>Youth and sports</option><option>Public services</option><option>Other</option></select></div><div><label for="area">Estate / area *</label><input id="area" required maxlength="100" placeholder="e.g. Ruai, Kamulu"></div></div>
+<label for="details">Describe the issue or suggestion *</label><textarea id="details" required maxlength="2500" placeholder="What happened, and where? Please avoid including sensitive personal information."></textarea>
+<div class="row"><div><label for="name">Name (optional)</label><input id="name" maxlength="100" autocomplete="name" placeholder="Your name"></div><div><label for="contact">Phone or email (optional)</label><input id="contact" maxlength="120" autocomplete="off" placeholder="How we can reach you"></div></div>
+<label class="check"><input id="consent" type="checkbox" required><span>I agree to share these details with the Ruai Ward Development contact for the purpose of responding to this feedback.</span></label>
+<button class="primary" type="submit">Prepare my submission</button>
+<p class="small">Your message is not sent automatically. You choose the channel and approve sending it in WhatsApp or your email app.</p>
+</form>
+<div id="sendPanel" class="status hidden" aria-live="polite"><h3>Submission prepared</h3><p id="referenceText"></p><p class="small">Keep the reference number for your records. This prototype does not save submissions to a central database or provide live status updates.</p><div class="btnrow"><a id="waLink" class="btn wa" href="#" target="_blank" rel="noopener">Send via WhatsApp</a><a id="emailLink" class="btn email" href="#">Send via email</a></div><button id="resetBtn" class="secondary" type="button">Prepare another submission</button></div>
+</section>
+<aside class="card"><h2>Contact the team</h2><p class="sub">Choose the channel that works best for you.</p>
+<div class="contact"><div class="icon">✆</div><div><strong>WhatsApp / Phone</strong><a href="https://wa.me/254742620609" target="_blank" rel="noopener">0742 620 609</a></div></div>
+<div class="contact"><div class="icon">✉</div><div><strong>Email</strong><a href="mailto:nyanchokaomenge@gmail.com">nyanchokaomenge@gmail.com</a></div></div>
+<h2 style="margin-top:24px">What happens next?</h2>
+<div class="feature"><strong>1. Share your concern</strong><span>Send details through WhatsApp or email.</span></div>
+<div class="feature"><strong>2. Receive a response</strong><span>The team can reply through the channel you used.</span></div>
+<div class="feature"><strong>3. Track progress</strong><span>Live case tracking will be available once a secure backend and administrator dashboard are connected.</span></div>
+<div class="notice"><strong>Privacy note</strong><br>Only share information needed to explain the issue. Do not submit passwords, national ID numbers, financial details or another person’s private information. Messages are handled by the external service you choose.</div>
+</aside></div></main>
+<footer><div class="wrap">Ruai Ward Development · Resident feedback prototype<br>For urgent emergencies, contact the relevant emergency service directly.</div></footer>
+<script>
+const form=document.getElementById('feedbackForm'), panel=document.getElementById('sendPanel');
+form.addEventListener('submit',function(e){e.preventDefault();if(!form.reportValidity())return;
+const ref='RWD-'+new Date().toISOString().slice(0,10).replaceAll('-','')+'-'+Math.random().toString(36).slice(2,7).toUpperCase();
+const val=id=>document.getElementById(id).value.trim();
+const message='RUAI WARD DEVELOPMENT — RESIDENT FEEDBACK\nReference: '+ref+'\nCategory: '+val('category')+'\nArea: '+val('area')+'\nDetails: '+val('details')+'\nName: '+(val('name')||'Not provided')+'\nContact: '+(val('contact')||'Not provided');
+document.getElementById('referenceText').textContent='Reference number: '+ref;
+document.getElementById('waLink').href='https://wa.me/254742620609?text='+encodeURIComponent(message);
+document.getElementById('emailLink').href='mailto:nyanchokaomenge@gmail.com?subject='+encodeURIComponent('Resident feedback '+ref)+'&body='+encodeURIComponent(message);
+panel.classList.remove('hidden');panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{form.reset();panel.classList.add('hidden');form.scrollIntoView({behavior:'smooth',block:'start'});});
+</script></body></html>
